@@ -1,8 +1,8 @@
 var cnv;
 
 var sceneCamera;
-var spheres;
 var light;
+var objects;
 
 var img;
 
@@ -12,7 +12,7 @@ function setup() {
    // colorMode(HSL);
    setupCoolors();
    setupCamera();
-   setupSpheres();
+   setupObjects();
    setupLights();
    cnv = createCanvas(window.innerWidth, window.innerHeight);
    cnv.position(0, 0);
@@ -45,20 +45,35 @@ function setupCamera() {
    sceneCamera.right = p5.Vector.cross(sceneCamera.forward, sceneCamera.up);
 }
 
-function setupSpheres() {
-   spheres = [{
+function setupObjects() {
+   objects = [{
+      type: "sphere",
       center: createVector(2, 0, 0),
       r: 0.5,
       color: coolors.rasp
    }, {
+      type: "sphere",
       center: createVector(3, 1, 0),
       r: 0.5,
       color: coolors.blue
    }, {
+      type: "sphere",
       center: createVector(1, 0.5, -0.5),
       r: 0.25,
       color: color(100, 80, 80)
    }];
+
+   for(var i = 0; i<objects.length; i++){
+      if(objects[i].type=="sphere"){
+         objects[i].dist2 = function(point){
+            return dist2Point(point, this.center) - this.r;
+         }
+      }else if(objects[i].type=="cube"){
+         objects[i].dist2 = function(point){
+         }
+      }
+   }
+
 }
 
 function setupLights(){
@@ -71,18 +86,14 @@ function dist2Point(point1, point2) {
    return Math.sqrt(Math.pow(point1.x - point2.x, 2) + Math.pow(point1.y - point2.y, 2) + Math.pow(point1.z - point2.z, 2));
 }
 
-function dist2Sphere(point, sphere) {
-   return dist2Point(point, sphere.center) - sphere.r;
-}
-
 function getNearestObject(point) {
-   var min = dist2Sphere(point, spheres[0]);
-   var objHit = spheres[0];
-   for (var i = 0; i < spheres.length; i++) {
-      var newDist = dist2Sphere(point, spheres[i]);
+   var min = objects[0].dist2(point);
+   var objHit = objects[0];
+   for (var i = 0; i < objects.length; i++) {
+      var newDist = objects[i].dist2(point);
       if (newDist < min) {
          min = newDist;
-         objHit = spheres[i];
+         objHit = objects[i];
       }
    }
    return {
@@ -127,12 +138,12 @@ function castRay(direction) {
 function getNormalAt(point, obj) {
    var e = 0.01;
    var v = createVector(
-      dist2Sphere(createVector(point.x + e, point.y, point.z), obj) -
-      dist2Sphere(createVector(point.x - e, point.y, point.z), obj),
-      dist2Sphere(createVector(point.x, point.y + e, point.z), obj) -
-      dist2Sphere(createVector(point.x, point.y - e, point.z), obj),
-      dist2Sphere(createVector(point.x, point.y, point.z + e), obj) -
-      dist2Sphere(createVector(point.x, point.y, point.z - e), obj),
+      obj.dist2(createVector(point.x + e, point.y, point.z), obj) -
+      obj.dist2(createVector(point.x - e, point.y, point.z), obj),
+      obj.dist2(createVector(point.x, point.y + e, point.z), obj) -
+      obj.dist2(createVector(point.x, point.y - e, point.z), obj),
+      obj.dist2(createVector(point.x, point.y, point.z + e), obj) -
+      obj.dist2(createVector(point.x, point.y, point.z - e), obj),
    );
 
    return v.normalize();
