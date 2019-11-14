@@ -3,8 +3,8 @@ pipeline {
     stages {
         stage('build') {
             steps {
-		sh 'echo "hello world"'
-                sh 'npm --version'
+		sh 'echo "this is from the jenkinsfile"'
+		bash buildbash.sh
             }
         }
     }
