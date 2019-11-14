@@ -1,3 +1,3 @@
 #!/bin/bash
 
-echo this is from inside the build bash file
+echo this is stilllll from inside the build bash file
