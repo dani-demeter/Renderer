@@ -12,6 +12,7 @@ pipeline {
 			sh 'echo "starting testing stage"'
 			sh 'cd SME19_fork'
 			sh 'cd SME19_fork'
+			sh 'ls'
 			sh 'cd workspace_implementation'
 			sh 'java -jar FromEclipse.jar'
 		}
