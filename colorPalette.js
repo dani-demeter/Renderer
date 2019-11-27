@@ -1,6 +1,7 @@
 var coolors = {};
 
 function setupCoolors(){
+
    coolors.white = color(245, 240, 246);
    coolors.black = color(28, 29, 32);
    coolors.gray = color(175, 175, 175);
