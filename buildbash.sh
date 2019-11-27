@@ -1,3 +1,8 @@
 #!/bin/bash
 
-echo this is stillll from inside the build bash file (sighs)
+IF NOT EXIST "SME19_fork"(
+echo 'getting a fork'
+git clone https://github.com/flamegiraffe/SME19_fork.git
+) ELSE (
+echo 'already have a fork'
+)
