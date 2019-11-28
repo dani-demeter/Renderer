@@ -2,6 +2,4 @@
 
 echo "starting test from bash script"
 echo "which"
-which java
-echo "path"
-JAVA_HOME
+/System/Library/Frameworks/JavaVM.framework/Versions/Current/Commands/java
