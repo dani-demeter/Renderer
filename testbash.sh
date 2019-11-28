@@ -2,6 +2,6 @@
 
 echo "starting test from bash script"
 echo "which"
-echo $(which java)
+which java
 echo "path"
-echo "$JAVA_HOME"
+JAVA_HOME
