@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage('fork') {
         	steps {
-			sh 'echo "this is from the jenkinsfile"'
+			sh 'echo "this is from the jenkinsfile!"'
 			sh 'bash buildbash.sh'
             	}
         }
