@@ -1,7 +1,4 @@
 #!/bin/bash
 
 echo "starting test from bash script"
-echo "which"
-/System/Library/Frameworks/JavaVM.framework/Versions/Current/Commands/java
-echo "home"
-echo $JAVA_HOME
+java -jar SME19_fork/workspace_implementation/FromEclipse.jar
