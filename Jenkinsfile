@@ -1,6 +1,5 @@
 pipeline {
     agent { docker { image 'node:6.3' } }
-    environment {java_cmd = $(which java)}
     stages {
         stage('fork') {
         	steps {
