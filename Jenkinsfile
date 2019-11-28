@@ -10,8 +10,7 @@ pipeline {
         }
 	stage('test') {
 		steps{
-			sh 'echo "starting testing stage"'
-			sh 'java_cmd -jar SME19_Fork/workspace_implementation/FromEclipse.jar'
+			sh 'bash testbash.sh'		
 		}
 	}
     }
